@@ -1,7 +1,7 @@
 # A709 금쪽이들의 GitLab~
 
 ## 팀 소개
-![팀원소개](https://github.com/Montag-Yuseop/Simda/assets/90131462/81f7604a-99fd-445a-9ec9-a6047be7c491){: width="400"}
+![팀원소개](https://github.com/Montag-Yuseop/Simda/assets/90131462/81f7604a-99fd-445a-9ec9-a6047be7c491){: width="50%"}
 
 ## 업데이트
 23.08.17 목 - Backend + Frontend
@@ -16,7 +16,7 @@ exec : 포팅 매뉴얼
 frontend : Frontend 폴더 
 
 ## 프로젝트 소개
-![메인](https://github.com/Montag-Yuseop/Simda/assets/65353328/4ce46373-f036-4514-a8f4-84f768451972){: width="400"}
+![메인](https://github.com/Montag-Yuseop/Simda/assets/65353328/4ce46373-f036-4514-a8f4-84f768451972){: width="50%"}
 
 ### 기타 링크
 [PPT 발표 링크](https://www.canva.com/design/DAFrwICNf5A/kD4WbLgilbaFHOxD8VQ5-g/view?utm_content=DAFrwICNf5A&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
