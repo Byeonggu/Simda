@@ -9,6 +9,7 @@ import 'package:simda/KakaoLogin/kakao_login.dart';
 import 'package:simda/KakaoLogin/login_page.dart';
 import 'package:simda/store.dart';
 import 'package:simda/main_page.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 // 달력 한국 시각
 import 'package:intl/date_symbol_data_local.dart';
@@ -28,6 +29,7 @@ Future<void> main() async {
   if (mapsImplementation is GoogleMapsFlutterAndroid) {
     mapsImplementation.useAndroidViewSurface = true;
   }
+  await dotenv.load(fileName: 'assets/config/.env');
   runApp(MaterialApp(
     theme: ThemeData(
       scaffoldBackgroundColor: Colors.white,

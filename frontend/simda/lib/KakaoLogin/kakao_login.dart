@@ -9,21 +9,16 @@ import 'package:dio/dio.dart';
 import 'package:simda/models/UserDto.dart';
 
 import '../store.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+String? baseUrl = dotenv.env['BASE_URL'];
 class KakaoLogin implements SocialLogin {
   final storage = const FlutterSecureStorage();
   final store = Store();
 
-  // static String email = "";
-  // static String ip = "http://70.12.247.215:8000";
-  static String ip = "http://i9a709.p.ssafy.io:8000";
+  static String ip = "$baseUrl";
 
   Future<void> saveStorage(Map<String, dynamic> map) async {
-    // print(userDto);
-    // Map<String, dynamic> map = jsonDecode(userDto);
-    // print(map);
-    // print(map);
-    // print("정보받아보자 : " + map["email"]);
 
     map.forEach((key, value) {
       if (value is String) {
@@ -33,7 +28,6 @@ class KakaoLogin implements SocialLogin {
         storage.write(key: key, value: stringValue);
       }
     });
-    // print(map);
   }
 
   @override
@@ -70,9 +64,6 @@ class KakaoLogin implements SocialLogin {
         }
       }
         try {
-          // await ref.set({
-          //   'info' : '카카오 - flutter 로그인 성공'
-          // });
           store.saveAccessToken(token!);
 
           final url = Uri.parse("$ip/user/login/kakao");
@@ -82,7 +73,6 @@ class KakaoLogin implements SocialLogin {
                 'accessToken': token.accessToken,
               }));
 
-          // print(response);
           saveStorage(jsonDecode(response.body));
           if (response.statusCode == 200) {
             // print("로그인 성공!");
@@ -99,7 +89,6 @@ class KakaoLogin implements SocialLogin {
             });
             return 0;
           }
-          // print("뭔가 오류가 있다");
           return -1;
         } catch (e) {
           await ref.push().set({
@@ -121,16 +110,7 @@ class KakaoLogin implements SocialLogin {
     try {
       await UserApi.instance.logout();
       await UserApi.instance.unlink();
-      // storage.delete(key: "email");
-      // storage.delete(key: "nickname");
-      // storage.delete(key: "")
       storage.deleteAll();
-      // storage.write(key: "email", value: "");
-      // storage.write(key: "nickname", value: "");
-      // storage.write(
-      //     key: "profileImg",
-      //     value:
-      //         "https://simda.s3.ap-northeast-2.amazonaws.com/img/profile/noimg.jpg");
       store.logout();
       return true;
     } catch (error) {
@@ -140,7 +120,6 @@ class KakaoLogin implements SocialLogin {
 
   @override
   Future<bool> signup(String path, String nickname) async {
-    // print('회원가입');
     try {
       Dio dio = Dio();
       var url = "$ip/user/";
@@ -167,15 +146,11 @@ class KakaoLogin implements SocialLogin {
         options: Options(headers: {'Content-Type': 'multipart/form-data'}),
       );
 
-      // print(response.data);
-
       saveStorage(response.data);
       String? storeUid = await storage.read(key:"userId");
       String? storeEmail = await storage.read(key: "email");
       String? storeProfileImg = await storage.read(key: "profileImg");
       String? storeNickname = await storage.read(key: "nickname");
-      // print("여기야");
-      // print(response.data);
       DatabaseReference ref = FirebaseDatabase.instance.ref("users").child(storeUid!);
       await ref.set({
         "nickname": storeNickname,
@@ -183,10 +158,8 @@ class KakaoLogin implements SocialLogin {
         "profileImg": storeProfileImg,
       });
 
-      // print('회원가입 성공!');
       return true;
     } catch (error) {
-      // print("회원가입 에러");
       print(error);
       return false;
     }

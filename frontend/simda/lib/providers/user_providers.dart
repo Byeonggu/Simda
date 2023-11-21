@@ -6,23 +6,18 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:simda/models/FollowDto.dart';
 import 'package:simda/models/UserDto.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import '../main.dart';
-
-
+String? baseUrl = dotenv.env['BASE_URL'];
 class UserProviders {
   final storage = const FlutterSecureStorage();
 
   Dio dio = Dio();
 
-  String url = "http://i9a709.p.ssafy.io:8000/user";
-  // String url = "http://70.12.247.215:8000/user";
-  // static String ip = "http://70.12.247.165:8000";
+  String url = "$baseUrl/user";
 
   // 세션 스토리지에 유저 정보를 저장하는 메소드
   Future<void> saveStorage(Map<String, dynamic> map) async {
-    print(map);
-    print("정보받아보자 : " + map["email"]);
 
     map.forEach((key, value) {
       if (value is String) {
@@ -32,7 +27,6 @@ class UserProviders {
         storage.write(key: key, value: stringValue);
       }
     });
-    print(map);
   }
 
   // 회원 탈퇴
@@ -72,8 +66,6 @@ class UserProviders {
   Future<UserDto> modifyUser(String path, UserDto userDto) async {
     try {
       MultipartFile? multipartfile;
-
-      print('path : $path');
 
       if(path.isNotEmpty){
         multipartfile = await MultipartFile.fromFile(path, filename: 'modified');
@@ -215,12 +207,9 @@ class UserProviders {
   Future<void> createFollowUser(int fromUserId, UserDto toUserDto) async{
     // userId만 집어넣어서 찾을 수 있을까?
     final fromUserDtoResponse = await dio.get('$url/profile?userId=$fromUserId');
-    print(fromUserDtoResponse.statusCode);
 
     if (fromUserDtoResponse.statusCode == 200) {
       final fromUserDto = UserDto.fromJson(fromUserDtoResponse.data);
-      print(fromUserDto.nickname);
-      print(toUserDto.nickname);
 
       final followDto = FollowDto(
         fromUserId: fromUserDto,
