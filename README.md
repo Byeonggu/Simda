@@ -1,7 +1,7 @@
 # A709 금쪽이들의 GitLab~
 
 ## 팀 소개
-<img src="https://github.com/Montag-Yuseop/Simda/assets/90131462/81f7604a-99fd-445a-9ec9-a6047be7c491.png  width="50%"/>
+![A709](https://github.com/Montag-Yuseop/Simda/assets/122460802/38d77392-c2e5-4a51-ac5c-40be3509273e)
 ## 업데이트
 23.08.17 목 - Backend + Frontend
 
